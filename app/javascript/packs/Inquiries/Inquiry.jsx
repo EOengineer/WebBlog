@@ -11,15 +11,14 @@ class Inquiry extends React.Component {
   }
 
   render() {
-    var name     = this.props.name;
-    var address  = this.props.address;
-    var salesRep = this.props.sales_rep
+    var fields  = this.props.fields;
+    var inquiry = this.props.inquiry;
 
     return (
       <div>
-        <h5>Name: {name}</h5>
-        <p>Address: {address}</p>
-        <p>Sales Rep: {salesRep}</p>
+        {fields.map((field) => {
+          return <p>{field}: {inquiry[field]}</p>;
+        })}
       </div>
     )
   }

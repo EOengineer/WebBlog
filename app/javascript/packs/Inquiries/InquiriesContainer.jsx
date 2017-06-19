@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import $ from 'jquery';
 
-import InquiryList from './InquiryList'
+//import InquiryList from './InquiryList'
+import Inquiry from './Inquiry'
 
 class InquiriesContainer extends React.Component {
   constructor(props) {
@@ -32,23 +33,20 @@ class InquiriesContainer extends React.Component {
   }
 
 
-
   render() {
-    //return <InquiryList inquiries={this.state.inquiries} fields={this.state.defaultFields} />;
+    var defaultFields = this.state.defaultFields;
+
     return (
       <div>
         {this.state.inquiries.map((inquiry) => {
-          var thing;
-          this.state.defaultFields.map((field) => {
-            thing = inquiry[field];
-            console.log(inquiry[field])
-          })
-          return <div>{thing}</div>;
+          return <Inquiry inquiry={inquiry} fields={defaultFields} />;
         })}
       </div>
     )
   }
 }
+
+
 
 export default InquiriesContainer;
 

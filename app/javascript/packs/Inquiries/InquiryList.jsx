@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 
-import Inquiry from './Inquiry'
-
 class InquiryList extends React.Component {
   constructor(props) {
     super(props);
