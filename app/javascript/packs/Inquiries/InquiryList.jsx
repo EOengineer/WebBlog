@@ -15,7 +15,6 @@ class InquiryList extends React.Component {
 
     var inquiries = this.props.inquiries;
 
-
     return (
       <div>
         {inquiries.map((inquiry) => {

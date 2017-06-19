@@ -4,5 +4,7 @@ class Inquiry < ApplicationRecord
             :address,
             :sales_rep, presence: true
 
+  belongs_to :user
+
 
 end

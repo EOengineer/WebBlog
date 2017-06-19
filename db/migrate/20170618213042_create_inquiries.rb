@@ -4,6 +4,8 @@ class CreateInquiries < ActiveRecord::Migration[5.1]
       t.string :name, null: false
       t.string :address, null: false
       t.string :sales_rep, null: false
+      t.integer :user_id
+
       t.timestamps
     end
   end
