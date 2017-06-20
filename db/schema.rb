@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20170619164146) do
   end
 
   create_table "user_settings", force: :cascade do |t|
+    t.string "title"
     t.string "key"
     t.text "settings"
     t.boolean "default"

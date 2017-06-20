@@ -1,5 +1,6 @@
 class UserSetting < ApplicationRecord
-  validates :key,
+  validates :title,
+            :key,
             :settings, presence: true
 
   belongs_to :user

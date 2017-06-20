@@ -2,46 +2,58 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import $ from 'jquery';
 
-//import InquiryList from './InquiryList'
-import Inquiry from './Inquiry'
+import PageSettings from '../Shared/PageSettings'
+import InquiryList from './InquiryList'
+
 
 class InquiriesContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       inquiries: [],
-      defaultSettings: [],
+      pageSettings: [],
       defaultFields: []
     };
 
     this.pullSettings = this.pullSettings.bind(this);
   }
 
+
+
   componentDidMount() {
-    $.getJSON('/inquiries?user_id=1.json', (response) => { this.setState({ inquiries: response }) });
-    $.getJSON('/user-settings?key=inquiries&user_id=1.json', (settings) => { this.pullSettings(settings) });
+    $.getJSON('/inquiries?user_id=1.json',
+      (response) => { this.setState({ inquiries: response }) });
+
+    $.getJSON('/user-settings?key=inquiries&user_id=1.json',
+      (settings) => { this.pullSettings(settings) });
   }
 
+
+
   pullSettings(settings) {
+    console.log(settings)
     if (settings.length > 0) {
       var defaultSettings       = settings.filter((setting) => {return setting.default == true});
       var parsedDefaultSettings = JSON.parse(defaultSettings[0].settings)
       var defaultFields         = parsedDefaultSettings.fields;
 
-      this.setState({defaultSettings: parsedDefaultSettings, defaultFields: defaultFields})
+      this.setState({pageSettings: settings, defaultFields: defaultFields})
     }
   }
 
 
+
   render() {
+
+    var inquiries     = this.state.inquiries;
     var defaultFields = this.state.defaultFields;
+    var pageSettings  = this.state.pageSettings;
 
     return (
-      <div>
-        {this.state.inquiries.map((inquiry) => {
-          return <Inquiry inquiry={inquiry} fields={defaultFields} />;
-        })}
-      </div>
+        <InquiryList
+          inquiries={inquiries}
+          pageSettings={pageSettings}
+          defaultFields={defaultFields} />
     )
   }
 }

@@ -34,9 +34,11 @@ puts "#{Inquiry.count} created."
 
 if UserSetting.count < 1
 
-  settings = { fields: [ "name", "address", "sales_rep"] }.to_json
+  settings  = { fields: [ "name", "address", "sales_rep"] }.to_json
+  settings2 = { fields: [ "sales_rep", "address", "name"] }.to_json
 
-  UserSetting.create({key: 'inquiries', default: true, user_id: 1, settings: settings})
+  UserSetting.create({ title: "setting 1", key: 'inquiries', default: true, user_id: 1, settings: settings })
+  UserSetting.create({ title: "setting 2", key: 'inquiries', default: false, user_id: 1, settings: settings2 })
 
   puts "#{UserSetting.count} created."
 end

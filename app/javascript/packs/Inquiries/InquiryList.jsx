@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 
+import PageSettings from '../Shared/PageSettings'
+import Inquiry from './Inquiry'
+
 class InquiryList extends React.Component {
   constructor(props) {
     super(props);
@@ -9,18 +12,27 @@ class InquiryList extends React.Component {
     };
   }
 
+
+
   render() {
 
-    var inquiries = this.props.inquiries;
+    var inquiries     = this.props.inquiries;
+    var defaultFields = this.props.defaultFields;
+    var pageSettings  = this.props.pageSettings;
 
     return (
-      <div>
-        {inquiries.map((inquiry) => {
-          return <Inquiry name={inquiry.name}
-                          address={inquiry.address}
-                          sales_rep={inquiry.sales_rep}
-                          key={inquiry.id} />;
+      <div className="inquiries-container">
+
+        <PageSettings pageSettings={pageSettings} />
+        {inquiries.map((inquiry, index) => {
+          return (
+            <Inquiry
+             inquiry={inquiry}
+             defaultFields={defaultFields}
+             key={index} />
+          )
         })}
+
       </div>
     )
   }
