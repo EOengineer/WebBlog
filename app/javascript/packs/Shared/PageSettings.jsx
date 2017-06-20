@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
-//import $ from 'jquery';
+import PageSetting from './PageSetting';
 
 
 
@@ -8,13 +8,13 @@ class PageSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pageSettings: [],
-      defaultFields: []
+      activeSetting: props.defaultSetting
     };
   }
 
-  componentDidMount() {
-    this.setState({pageSettings: this.props.pageSettings})
+
+  setActiveSetting = (setting) => {
+      this.setState({activeSetting: setting, defaultSetting: false});
   }
 
 
@@ -27,9 +27,12 @@ class PageSettings extends React.Component {
           {pageSettings.map((setting, index) => {
             var fieldSettings = JSON.parse(setting.settings);
             return (
-              <li key={index}>
-                <span>{setting.key}</span>
-              </li>
+              <PageSetting key={index}
+                           setting={setting}
+                           selected={this.state.activeSetting}
+                           fieldSettings={fieldSettings}
+                           updateFieldSelection={this.props.updateFieldSelection}
+                           setActiveSetting={this.setActiveSetting} />
             )
           })}
         </ul>

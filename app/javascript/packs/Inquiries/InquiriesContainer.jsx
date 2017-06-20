@@ -12,15 +12,13 @@ class InquiriesContainer extends React.Component {
     this.state = {
       inquiries: [],
       pageSettings: [],
-      defaultFields: []
+      selectedFields: []
     };
-
-    this.pullSettings = this.pullSettings.bind(this);
   }
 
 
 
-  componentDidMount() {
+  componentDidMount = () => {
     $.getJSON('/inquiries?user_id=1.json',
       (response) => { this.setState({ inquiries: response }) });
 
@@ -29,31 +27,37 @@ class InquiriesContainer extends React.Component {
   }
 
 
+  updateFieldSelection = (selectedFields) => {
+    this.setState({selectedFields: selectedFields})
+  }
+
+
+
+
 
   pullSettings(settings) {
-    console.log(settings)
     if (settings.length > 0) {
       var defaultSettings       = settings.filter((setting) => {return setting.default == true});
       var parsedDefaultSettings = JSON.parse(defaultSettings[0].settings)
-      var defaultFields         = parsedDefaultSettings.fields;
+      var selectedFields        = parsedDefaultSettings.fields;
 
-      this.setState({pageSettings: settings, defaultFields: defaultFields})
+      this.setState({pageSettings: settings, selectedFields: selectedFields})
     }
   }
-
 
 
   render() {
 
     var inquiries     = this.state.inquiries;
-    var defaultFields = this.state.defaultFields;
+    var defaultFields = this.state.selectedFields;
     var pageSettings  = this.state.pageSettings;
 
     return (
         <InquiryList
           inquiries={inquiries}
           pageSettings={pageSettings}
-          defaultFields={defaultFields} />
+          defaultFields={defaultFields}
+          updateFieldSelection={this.updateFieldSelection} />
     )
   }
 }

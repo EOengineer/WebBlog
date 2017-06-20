@@ -13,6 +13,12 @@ class InquiryList extends React.Component {
   }
 
 
+  getDefaultSetting = (pageSettings) => {
+    if (pageSettings.length > 0) {
+      var defaultSetting = pageSettings.filter((setting) => {return setting.default == true})
+      return defaultSetting
+    }
+  }
 
   render() {
 
@@ -20,10 +26,16 @@ class InquiryList extends React.Component {
     var defaultFields = this.props.defaultFields;
     var pageSettings  = this.props.pageSettings;
 
+    var defaultSetting = this.getDefaultSetting(pageSettings)
+
     return (
       <div className="inquiries-container">
 
-        <PageSettings pageSettings={pageSettings} />
+        <PageSettings
+         pageSettings={pageSettings}
+         defaultSetting={defaultSetting ? defaultSetting : null}
+         updateFieldSelection={this.props.updateFieldSelection} />
+
         {inquiries.map((inquiry, index) => {
           return (
             <Inquiry

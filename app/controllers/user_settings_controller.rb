@@ -4,11 +4,10 @@ class UserSettingsController < ApplicationController
   # GET /user_settings
   # GET /user_settings.json
   def index
-    if params[:key].present?
+
       @user_settings = UserSetting.where(key: params[:key], user_id: params[:user_id])
-    else
-      []
-    end
+
+      @user_settings.to_json
   end
 
   # GET /user_settings/1
