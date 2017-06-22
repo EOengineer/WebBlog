@@ -1,38 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 import PageSetting from './PageSetting';
-
+import $ from 'jquery';
 
 
 class PageSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeSetting: props.defaultSetting
+      pageSettings: []
     };
   }
 
-
-  setActiveSetting = (setting) => {
-      this.setState({activeSetting: setting, defaultSetting: false});
+  componentDidMount() {
+    $.getJSON('/user-settings?key=inquiries&user_id=1.json',
+      (pageSettings) => {
+        this.setState({pageSettings: pageSettings})
+    });
   }
 
 
+
   render() {
-    var pageSettings = this.props.pageSettings;
+
+    var pageSettings = this.state.pageSettings;
 
     return (
       <div className="page-settings-container">
         <ul>
           {pageSettings.map((setting, index) => {
-            var fieldSettings = JSON.parse(setting.settings);
             return (
               <PageSetting key={index}
                            setting={setting}
-                           selected={this.state.activeSetting}
-                           fieldSettings={fieldSettings}
-                           updateFieldSelection={this.props.updateFieldSelection}
-                           setActiveSetting={this.setActiveSetting} />
+                           selectedSetting={this.props.selectedSetting}
+                           updateSelectedSetting={this.props.updateSelectedSetting} />
             )
           })}
         </ul>

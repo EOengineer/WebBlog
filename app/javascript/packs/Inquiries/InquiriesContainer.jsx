@@ -10,54 +10,50 @@ class InquiriesContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      inquiries: [],
-      pageSettings: [],
-      selectedFields: []
+      selectedSetting: this.getDefaultSettings(),
+      displayedFields: []
     };
   }
 
 
 
-  componentDidMount = () => {
-    $.getJSON('/inquiries?user_id=1.json',
-      (response) => { this.setState({ inquiries: response }) });
-
-    $.getJSON('/user-settings?key=inquiries&user_id=1.json',
-      (settings) => { this.pullSettings(settings) });
+  getDefaultSettings() {
+    $.getJSON('/user-settings/default?key=inquiries&user_id=1.json',
+      (selectedSetting) => {
+        var fields = JSON.parse(selectedSetting.settings).fields;
+        this.setState({selectedSetting: selectedSetting, displayedFields: fields})
+      });
   }
 
 
-  updateFieldSelection = (selectedFields) => {
-    this.setState({selectedFields: selectedFields})
+  updateSelectedSetting = (selectedSetting) => {
+    var fields = JSON.parse(selectedSetting.settings).fields;
+    this.setState({selectedSetting: selectedSetting, displayedFields: fields})
   }
 
 
 
-
-
-  pullSettings(settings) {
-    if (settings.length > 0) {
-      var defaultSettings       = settings.filter((setting) => {return setting.default == true});
-      var parsedDefaultSettings = JSON.parse(defaultSettings[0].settings)
-      var selectedFields        = parsedDefaultSettings.fields;
-
-      this.setState({pageSettings: settings, selectedFields: selectedFields})
+  initializeInquiriesContainer() {
+    if (this.state.selectedSetting != null) {
+      return(
+        <div className="inquiries-container">
+          <PageSettings selectedSetting={this.state.selectedSetting} updateSelectedSetting={this.updateSelectedSetting} />
+          <InquiryList displayedFields={this.state.displayedFields} />
+        </div>
+      )
+    } else {
+      return <div>loading...</div>;
     }
   }
 
 
+
   render() {
 
-    var inquiries     = this.state.inquiries;
-    var defaultFields = this.state.selectedFields;
-    var pageSettings  = this.state.pageSettings;
-
     return (
-        <InquiryList
-          inquiries={inquiries}
-          pageSettings={pageSettings}
-          defaultFields={defaultFields}
-          updateFieldSelection={this.updateFieldSelection} />
+        <div className="inquiries-container">
+        { this.initializeInquiriesContainer()}
+        </div>
     )
   }
 }

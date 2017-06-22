@@ -9,4 +9,5 @@ Rails.application.routes.draw do
 
   get "user-settings", to: 'user_settings#index'
 
+  get "user-settings/default", to: 'user_settings#default'
 end

@@ -1,47 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
+import $ from 'jquery';
 
-import PageSettings from '../Shared/PageSettings'
+// import PageSettings from '../Shared/PageSettings'
 import Inquiry from './Inquiry'
 
 class InquiryList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      inquiries: []
     };
   }
 
 
-  getDefaultSetting = (pageSettings) => {
-    if (pageSettings.length > 0) {
-      var defaultSetting = pageSettings.filter((setting) => {return setting.default == true})
-      return defaultSetting
-    }
+  componentDidMount() {
+    $.getJSON('/inquiries?user_id=1.json',
+      (response) => { this.setState({ inquiries: response }) });
   }
 
   render() {
-
-    var inquiries     = this.props.inquiries;
-    var defaultFields = this.props.defaultFields;
-    var pageSettings  = this.props.pageSettings;
-
-    var defaultSetting = this.getDefaultSetting(pageSettings)
-
     return (
-      <div className="inquiries-container">
+      <div className="inquiries-items">
 
-        <PageSettings
-         pageSettings={pageSettings}
-         defaultSetting={defaultSetting ? defaultSetting : null}
-         updateFieldSelection={this.props.updateFieldSelection} />
-
-        {inquiries.map((inquiry, index) => {
+        {this.state.inquiries.map((inquiry, index) => {
           return (
             <Inquiry
              inquiry={inquiry}
-             defaultFields={defaultFields}
-             key={index} />
+             displayedFields={this.props.displayedFields}
+             key={inquiry.id} />
           )
         })}
 

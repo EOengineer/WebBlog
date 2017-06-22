@@ -11,12 +11,11 @@ class Inquiry extends React.Component {
   }
 
   render() {
-    var defaultFields  = this.props.defaultFields;
-    var inquiry        = this.props.inquiry;
-
+    var inquiry         = this.props.inquiry;
+    var displayedFields = this.props.displayedFields;
     return (
       <ul>
-        {defaultFields.map((field, index) => {
+        {this.props.displayedFields.map((field, index) => {
           return <li key={index}>{field}: {inquiry[field]}</li>;
         })}
       </ul>

@@ -7,20 +7,21 @@ class PageSetting extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      userSelected: false,
+      selectedSetting: this.props.selectedSetting.id,
+      setting: this.props.setting
     };
   }
 
+
   selectSetting = () => {
-      this.props.setActiveSetting(this.props.setting.id)
-      this.props.updateFieldSelection(this.props.fieldSettings.fields);
+    this.props.updateSelectedSetting(this.state.setting)
   }
 
 
-
-
   render() {
-    var setting = this.props.setting;
+    var setting = this.state.setting;
+    var selected = this.props.selectedSetting.id === setting.id
     var activeStyle = {
       backgroundColor: 'blue',
       color: 'white'
@@ -29,8 +30,11 @@ class PageSetting extends React.Component {
     return (
         <li>
           <button
-            style={this.props.selected == setting.id ? activeStyle : null}
-            onClick={this.selectSetting}>{setting.title}
+            onClick={this.selectSetting}
+            style={selected ? activeStyle : null}>
+
+            {setting.title}
+
           </button>
         </li>
     )

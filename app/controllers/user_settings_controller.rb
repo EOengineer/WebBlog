@@ -24,6 +24,12 @@ class UserSettingsController < ApplicationController
   def edit
   end
 
+  def default
+    @user_setting = UserSetting.where(key: params[:key], user_id: params[:user_id], default: true).try(:first)
+
+    return @user_setting.to_json
+  end
+
   # POST /user_settings
   # POST /user_settings.json
   def create
