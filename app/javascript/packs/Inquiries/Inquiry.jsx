@@ -17,7 +17,7 @@ class Inquiry extends React.Component {
       <tr>
       <td>{inquiry.id}</td>
         {this.props.displayedFields.map((field, index) => {
-          return <td key={index}>{field}: {inquiry[field]}</td>;
+          return <td key={index}>{inquiry[field]}</td>;
         })}
       </tr>
     )
