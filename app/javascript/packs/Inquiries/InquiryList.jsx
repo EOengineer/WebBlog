@@ -19,6 +19,8 @@ class InquiryList extends React.Component {
       (response) => { this.setState({ inquiries: response }) });
   }
 
+
+
   render() {
     return (
       <div className="inquiries-items table">

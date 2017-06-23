@@ -20,8 +20,7 @@ class InquiriesContainer extends React.Component {
   getDefaultSettings() {
     $.getJSON('/user-settings/default?key=inquiries&user_id=1.json',
       (selectedSetting) => {
-        var fields = JSON.parse(selectedSetting.settings).fields;
-        this.setState({selectedSetting: selectedSetting, displayedFields: fields})
+        this.updateSelectedSetting(selectedSetting)
       });
   }
 
@@ -34,15 +33,21 @@ class InquiriesContainer extends React.Component {
 
 
   initializeInquiriesContainer() {
-    if (this.state.selectedSetting != null) {
+    if (this.state.selectedSetting) {
       return(
         <div className="inquiries-container">
-          <PageSettings selectedSetting={this.state.selectedSetting} updateSelectedSetting={this.updateSelectedSetting} />
-          <InquiryList displayedFields={this.state.displayedFields} />
+
+          <PageSettings
+            selectedSetting={this.state.selectedSetting}
+            updateSelectedSetting={this.updateSelectedSetting} />
+
+          <InquiryList
+            displayedFields={this.state.displayedFields} />
+
         </div>
       )
     } else {
-      return <div class="loaderName"></div>;
+      return <div className="loader"></div>;
     }
   }
 

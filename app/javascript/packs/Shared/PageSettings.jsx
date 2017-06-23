@@ -8,6 +8,7 @@ class PageSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      displayPresets: false,
       pageSettings: []
     };
   }
@@ -20,22 +21,39 @@ class PageSettings extends React.Component {
   }
 
 
+  togglePresets = () => {
+    this.setState({displayPresets: !this.state.displayPresets})
+  }
+
+
 
   render() {
 
     var pageSettings = this.state.pageSettings;
-
+    console.log(this.state.displayPresets)
     return (
       <div style={{display: "inline-block", margin: "1em"}} className="page-settings-container">
-          <p style={{textAlign: "center"}}>Select a view preset.</p>
-          {pageSettings.map((setting, index) => {
-            return (
-              <PageSetting key={index}
-                           setting={setting}
-                           selectedSetting={this.props.selectedSetting}
-                           updateSelectedSetting={this.props.updateSelectedSetting} />
-            )
-          })}
+
+          <button
+           onClick={this.togglePresets}
+           className="btn btn-default"
+           style={{textAlign: "center"}}>
+            {this.state.displayPresets ? "Hide all view presets" : "Select a view preset"}
+          </button>
+
+          {this.state.displayPresets &&
+          <div className="page-settings-list">
+            {pageSettings.map((setting, index) => {
+              return (
+                <PageSetting key={index}
+                             setting={setting}
+                             selectedSetting={this.props.selectedSetting}
+                             updateSelectedSetting={this.props.updateSelectedSetting} />
+              )
+            })}
+          </div>
+        }
+
       </div>
     )
   }
