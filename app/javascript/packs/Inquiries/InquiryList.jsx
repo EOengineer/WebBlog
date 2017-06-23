@@ -21,17 +21,31 @@ class InquiryList extends React.Component {
 
   render() {
     return (
-      <div className="inquiries-items">
+      <div className="inquiries-items table">
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              {this.props.displayedFields.map((fieldName) => {
+                return(
+                  <th key={fieldName} style={{textTransform: "capitalize"}}>{fieldName.replace("_", " ")}</th>
+                )
+              })}
+            </tr>
+          </thead>
+          <tbody>
 
-        {this.state.inquiries.map((inquiry, index) => {
-          return (
-            <Inquiry
-             inquiry={inquiry}
-             displayedFields={this.props.displayedFields}
-             key={inquiry.id} />
-          )
-        })}
+            {this.state.inquiries.map((inquiry, index) => {
+              return (
+                <Inquiry
+                 inquiry={inquiry}
+                 displayedFields={this.props.displayedFields}
+                 key={inquiry.id} />
+              )
+            })}
 
+          </tbody>
+        </table>
       </div>
     )
   }

@@ -26,8 +26,8 @@ class PageSettings extends React.Component {
     var pageSettings = this.state.pageSettings;
 
     return (
-      <div className="page-settings-container">
-        <ul>
+      <div style={{display: "inline-block", margin: "1em"}} className="page-settings-container">
+          <p style={{textAlign: "center"}}>Select a view preset.</p>
           {pageSettings.map((setting, index) => {
             return (
               <PageSetting key={index}
@@ -36,7 +36,6 @@ class PageSettings extends React.Component {
                            updateSelectedSetting={this.props.updateSelectedSetting} />
             )
           })}
-        </ul>
       </div>
     )
   }

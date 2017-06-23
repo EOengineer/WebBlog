@@ -51,7 +51,7 @@ class InquiriesContainer extends React.Component {
   render() {
 
     return (
-        <div className="inquiries-container">
+        <div>
         { this.initializeInquiriesContainer()}
         </div>
     )

@@ -11,12 +11,24 @@ class Navigation extends React.Component {
   }
   render() {
     return (
-      <ul>
-        <li><a href="/home">Home</a></li>
-        <li><a href="/inquiries">Inquiries</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li><a href="/about">About</a></li>
-      </ul>
+      <div className="container-fluid">
+        <div className="navbar-header">
+          <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+            <span className="sr-only">Toggle navigation</span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+          </button>
+        </div>
+        <div className="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+          <ul className="nav navbar-nav">
+            <li><a href="/">Home<span style={{fontSize: "16px"}} className="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+            <li className="active"><a href="/inquiries">Inquiries<span style={{fontSize: "16px"}} className="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span></a></li>
+            <li><a href="/contact">Contact<span style={{fontSize: "16px"}} className="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
+            <li><a href="/about">About<span style={{fontSize: "16px"}} className="pull-right hidden-xs showopacity glyphicon glyphicon-tags"></span></a></li>
+          </ul>
+        </div>
+      </div>
     );
   }
 }

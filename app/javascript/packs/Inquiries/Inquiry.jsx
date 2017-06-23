@@ -14,11 +14,12 @@ class Inquiry extends React.Component {
     var inquiry         = this.props.inquiry;
     var displayedFields = this.props.displayedFields;
     return (
-      <ul>
+      <tr>
+      <td>{inquiry.id}</td>
         {this.props.displayedFields.map((field, index) => {
-          return <li key={index}>{field}: {inquiry[field]}</li>;
+          return <td key={index}>{field}: {inquiry[field]}</td>;
         })}
-      </ul>
+      </tr>
     )
   }
 }

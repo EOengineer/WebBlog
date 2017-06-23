@@ -22,21 +22,14 @@ class PageSetting extends React.Component {
   render() {
     var setting = this.state.setting;
     var selected = this.props.selectedSetting.id === setting.id
-    var activeStyle = {
-      backgroundColor: 'blue',
-      color: 'white'
-    };
 
     return (
-        <li>
           <button
-            onClick={this.selectSetting}
-            style={selected ? activeStyle : null}>
+            className={selected ? "btn btn-primary" : "btn btn-default"}
+            onClick={this.selectSetting} >
 
             {setting.title}
-
           </button>
-        </li>
     )
   }
 }
